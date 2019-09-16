@@ -1,0 +1,45 @@
+.main {
+    margin: 0 auto;
+    width: 80%;
+    max-width: 768px;
+    color: grey;
+    font-size: 12pt;
+    position:absolute;
+    top:40%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    overflow:auto;
+}
+
+.center {
+    text-align: center;
+}
+
+p.time {
+    margin-left: 0;
+}
+
+.child {
+    display: flex;
+}
+
+.child div {
+    flex-grow: 1;
+    width: 0;
+}
+
+h1 {
+    margin-block-end: 0.5rem;
+}
+
+h3 {
+    margin-block-start: 0.5rem;
+    margin-block-end: 0;
+}
+
+img {
+    margin: auto auto;
+    width: 50%;
+    border: 0;
+}
+
