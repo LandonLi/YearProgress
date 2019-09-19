@@ -61,14 +61,14 @@ h3.opacity {
 
 img.slidein {
     max-width: 50%;
-    animation-duration: 2s;
+    animation-duration: 4s;
     animation-name: slidein;
 }
 
 .opac {
-    -moz-animation-duration: 2s;
-    -webkit-animation-duration: 2s;
-    animation-duration: 2s;
+    -moz-animation-duration: 4s;
+    -webkit-animation-duration: 4s;
+    animation-duration: 4s;
     -moz-animation-name: opac;
     -webkit-animation-name: opac;
     animation-name: opac;
@@ -79,7 +79,7 @@ img.slidein {
         opacity: 0
     }
 
-    50% {
+    75% {
         opacity: 0
     }
 
@@ -93,7 +93,7 @@ img.slidein {
         opacity: 0
     }
 
-    50% {
+    75% {
         opacity: 0
     }
 
@@ -107,7 +107,7 @@ img.slidein {
         opacity: 0
     }
 
-    50% {
+    75% {
         opacity: 0
     }
 
@@ -117,9 +117,9 @@ img.slidein {
 }
 
 .slidein {
-    -moz-animation-duration: 2s;
-    -webkit-animation-duration: 2s;
-    animation-duration: 2s;
+    -moz-animation-duration: 4s;
+    -webkit-animation-duration: 4s;
+    animation-duration: 4s;
     -moz-animation-name: slidein;
     -webkit-animation-name: slidein;
     animation-name: slidein;
@@ -127,14 +127,14 @@ img.slidein {
 
 @-moz-keyframes slidein {
     from {
-        color: white;
+        color: grey;
         margin-left: -100%;
         width: 100%
     }
 
     25% {
-        color: white;
-        margin-left: -100%;
+        color: grey;
+        margin-left: -68.75%;
         width: 100%
     }
 
@@ -147,14 +147,14 @@ img.slidein {
 
 @-webkit-keyframes slidein {
     from {
-        color: white;
+        color: grey;
         margin-left: -100%;
         width: 100%
     }
 
     25% {
-        color: white;
-        margin-left: -100%;
+        color: grey;
+        margin-left: -68.75%;
         width: 100%
     }
 
@@ -167,14 +167,14 @@ img.slidein {
 
 @keyframes slidein {
     from {
-        color: white;
+        color: grey;
         margin-left: -100%;
         width: 100%
     }
 
     25% {
-        color: white;
-        margin-left: -100%;
+        color: grey;
+        margin-left: -68.75%;
         width: 100%
     }
 

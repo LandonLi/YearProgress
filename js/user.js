@@ -33,51 +33,9 @@ function getComplicatedTimeBySeconds(seconds) {
 }
 
 function calculate(currentTimeSpan, pastTimeSpan, remainingTimeSpan, bar) {
-    // get current time
-    let now = new Date();
-
-    // format it
-    let year = now.getFullYear();
-    let month = addLeftZero(now.getMonth() + 1);
-    let day = addLeftZero(now.getDate());
-    let hour = addLeftZero(now.getHours());
-    let minute = addLeftZero(now.getMinutes());
-    let second = addLeftZero(now.getSeconds());
-
-    // get begin and end of this year
-    let beginOfThisYear = new Date(year + "/01/01 00:00:00");
-    let endOfThisYear = new Date((year + 1) + "/01/01 00:00:00");
-
-    // do some calculate
-    let totalSeconds = parseInt((endOfThisYear - beginOfThisYear) / 1000);
-
-    let pastSeconds = parseInt((now - beginOfThisYear) / 1000);
-    let pastTime = getComplicatedTimeBySeconds(pastSeconds);
-
-    let remainingSeconds = endOfThisYear / 1000 - Math.floor(now / 1000);
-    let remainingTime = getComplicatedTimeBySeconds(remainingSeconds);
-
-    let percentage = Math.floor(100 * (pastSeconds / totalSeconds));
-    let level = getLevel(percentage);
-
-    let barClassName = "bar striped " + level + " w-" + percentage;
-    let barInnerText = percentage + "%";
-
-    // change text
-    currentTimeSpan.innerText = `${year}-${month}-${day} ${hour}:${minute}:${second}`;
-    pastTimeSpan.innerText = pastTime;
-    remainingTimeSpan.innerText = remainingTime;
-    if (bar.className != barClassName) {
-        bar.className = barClassName;
-    }
-    if (bar.innerText != barInnerText) {
-        bar.innerText = barInnerText
-    }
-
-    var initialized = localStorage.getItem("initialized");
-    if (initialized==='false') {
-        initialized = true;
-        localStorage.setItem("initialized", initialized);
+    // 初始化动画节点
+    var counter = parseInt(localStorage.getItem("counter"));
+    if (counter++ === 0) {
         var quote = document.querySelector("div#quote");
         var div = document.createElement('div');
         div.innerHTML = '<h3 class="opacity">Time flies like an arrow.</h3>'
@@ -86,7 +44,56 @@ function calculate(currentTimeSpan, pastTimeSpan, remainingTimeSpan, bar) {
         var node2 = div.firstChild;
         quote.appendChild(node1);
         quote.appendChild(node2);
-        console.log("Added classname.")
+    }
+
+    // 获取当前时间
+    let now = new Date();
+
+    // 格式化
+    let year = now.getFullYear();
+    let month = addLeftZero(now.getMonth() + 1);
+    let day = addLeftZero(now.getDate());
+    let hour = addLeftZero(now.getHours());
+    let minute = addLeftZero(now.getMinutes());
+    let second = addLeftZero(now.getSeconds());
+
+    // 获取年初、年末时间
+    let beginOfThisYear = new Date(year + "/01/01 00:00:00");
+    let endOfThisYear = new Date((year + 1) + "/01/01 00:00:00");
+
+    // 做一些计算
+    let totalSeconds = parseInt((endOfThisYear - beginOfThisYear) / 1000);
+
+    let pastSeconds = parseInt((now - beginOfThisYear) / 1000);
+    let pastTime = getComplicatedTimeBySeconds(pastSeconds);
+
+    let remainingSeconds = endOfThisYear / 1000 - Math.floor(now / 1000);
+    let remainingTime = getComplicatedTimeBySeconds(remainingSeconds);
+
+    // 将进度条分4s呈现
+    let percentage = Math.floor(100 * (pastSeconds / totalSeconds));
+    if (percentage >= 4 && counter < 5) {
+        percentage = Math.floor(percentage * counter / 4);
+        localStorage.setItem("counter", counter); // counter>=5 时计数无意义
+    }
+    let level = getLevel(percentage);
+
+    let barClassName = "bar striped " + level + " w-" + percentage;
+    let barInnerText = percentage + "%";
+
+    // 更改标签属性、内部文字
+    currentTimeSpan.innerText = `${year}-${month}-${day} ${hour}:${minute}:${second}`;
+    pastTimeSpan.innerText = pastTime;
+    remainingTimeSpan.innerText = remainingTime;
+
+    currentTimeSpan.innerText = `${year}-${month}-${day} ${hour}:${minute}:${second}`;
+    pastTimeSpan.innerText = pastTime;
+    remainingTimeSpan.innerText = remainingTime;
+    if (bar.className != barClassName) {
+        bar.className = barClassName;
+    }
+    if (bar.innerText != barInnerText) {
+        bar.innerText = barInnerText;
     }
 }
 
@@ -99,7 +106,7 @@ function run() {
     let timezoneSpan = document.getElementById("tz");
     timezoneSpan.innerText = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-    localStorage.setItem("initialized", false);
+    localStorage.setItem("counter", 0);
     setInterval(function () {
         calculate(currentTimeSpan, pastTimeSpan, remainingTimeSpan, bar)
     }, 1000);
