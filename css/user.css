@@ -4,11 +4,11 @@
     max-width: 768px;
     color: grey;
     font-size: 12pt;
-    position:absolute;
-    top:40%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    overflow:auto;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow: auto;
 }
 
 .center {
@@ -19,14 +19,14 @@ p.time {
     margin-left: 0;
 }
 
-.child {
+/* .child {
     display: flex;
-}
+} */
 
-.child div {
+/* .child div {
     flex-grow: 1;
     width: 0;
-}
+} */
 
 h1 {
     margin-block-end: 0.5rem;
@@ -43,3 +43,144 @@ img {
     border: 0;
 }
 
+/* 隐藏main的滚动条 */
+div.main::-webkit-scrollbar {
+    width: 0 !important
+}
+
+div.main {
+    -ms-overflow-style: none;
+    overflow: -moz-scrollbars-none;
+}
+
+/* 动画效果 */
+h3.opacity {
+    animation-duration: 4s;
+    animation-name: opac;
+}
+
+img.slidein {
+    max-width: 50%;
+    animation-duration: 2s;
+    animation-name: slidein;
+}
+
+.opac {
+    -moz-animation-duration: 2s;
+    -webkit-animation-duration: 2s;
+    animation-duration: 2s;
+    -moz-animation-name: opac;
+    -webkit-animation-name: opac;
+    animation-name: opac;
+}
+
+@-moz-keyframes opac {
+    from {
+        opacity: 0
+    }
+
+    50% {
+        opacity: 0
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+@-webkit-keyframes opac {
+    from {
+        opacity: 0
+    }
+
+    50% {
+        opacity: 0
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+@keyframes opac {
+    from {
+        opacity: 0
+    }
+
+    50% {
+        opacity: 0
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+.slidein {
+    -moz-animation-duration: 2s;
+    -webkit-animation-duration: 2s;
+    animation-duration: 2s;
+    -moz-animation-name: slidein;
+    -webkit-animation-name: slidein;
+    animation-name: slidein;
+}
+
+@-moz-keyframes slidein {
+    from {
+        color: white;
+        margin-left: -100%;
+        width: 100%
+    }
+
+    25% {
+        color: white;
+        margin-left: -100%;
+        width: 100%
+    }
+
+    to {
+        color: grey;
+        margin-left: 25%;
+        width: 100%;
+    }
+}
+
+@-webkit-keyframes slidein {
+    from {
+        color: white;
+        margin-left: -100%;
+        width: 100%
+    }
+
+    25% {
+        color: white;
+        margin-left: -100%;
+        width: 100%
+    }
+
+    to {
+        color: grey;
+        margin-left: 25%;
+        width: 100%;
+    }
+}
+
+@keyframes slidein {
+    from {
+        color: white;
+        margin-left: -100%;
+        width: 100%
+    }
+
+    25% {
+        color: white;
+        margin-left: -100%;
+        width: 100%
+    }
+
+    to {
+        color: grey;
+        margin-left: 25%;
+        width: 100%;
+    }
+}
