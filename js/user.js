@@ -74,10 +74,10 @@ function calculate(currentTimeSpan, pastTimeSpan, remainingTimeSpan, bar) {
         bar.innerText = barInnerText
     }
 
-    var counter = localStorage.getItem("counter");
-    counter = parseInt(counter);
-
-    if (counter++ == 0) {
+    var initialized = localStorage.getItem("initialized");
+    if (initialized==='false') {
+        initialized = true;
+        localStorage.setItem("initialized", initialized);
         var quote = document.querySelector("div#quote");
         var div = document.createElement('div');
         div.innerHTML = '<h3 class="opacity">Time flies like an arrow.</h3>'
@@ -88,8 +88,6 @@ function calculate(currentTimeSpan, pastTimeSpan, remainingTimeSpan, bar) {
         quote.appendChild(node2);
         console.log("Added classname.")
     }
-    // counter = counter + 1;
-    localStorage.setItem("counter", counter);
 }
 
 function run() {
@@ -101,8 +99,7 @@ function run() {
     let timezoneSpan = document.getElementById("tz");
     timezoneSpan.innerText = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-    var counter = 0;
-    localStorage.setItem("counter", counter);
+    localStorage.setItem("initialized", false);
     setInterval(function () {
         calculate(currentTimeSpan, pastTimeSpan, remainingTimeSpan, bar)
     }, 1000);
