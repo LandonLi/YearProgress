@@ -72,10 +72,13 @@ function calculate(currentTimeSpan, pastTimeSpan, remainingTimeSpan, bar) {
 
     // 将进度条分4s呈现
     let percentage = Math.floor(100 * (pastSeconds / totalSeconds));
-    if (percentage >= 4 && counter < 5) {
+    if (percentage >= 4) {
         percentage = Math.floor(percentage * counter / 4);
+    }
+    if (counter < 5) {
         localStorage.setItem("counter", counter); // counter>=5 时计数无意义
     }
+
     let level = getLevel(percentage);
 
     let barClassName = "bar striped " + level + " w-" + percentage;
