@@ -1,8 +1,8 @@
 function isLeapYear(year) {
     if (year % 100 == 0) {
-        return (year % 400 == 0)
+        return (year % 400 == 0);
     } else {
-        return (year % 100 == 0)
+        return (year % 100 == 0);
     }
 }
 
@@ -12,7 +12,7 @@ function getLevel(percentage) {
     } else if (percentage <= 90) {
         return "warning";
     } else {
-        return "danger"
+        return "danger";
     }
 }
 
@@ -31,6 +31,7 @@ function getComplicatedTimeBySeconds(seconds) {
     let fDay = temp;
     return `${fDay}day, ${fHour}hour, ${fMinute}minute, ${fSecond}second.`;
 }
+
 
 function calculate(currentTimeSpan, pastTimeSpan, remainingTimeSpan, bar) {
     // 初始化动画节点
@@ -70,34 +71,35 @@ function calculate(currentTimeSpan, pastTimeSpan, remainingTimeSpan, bar) {
     let remainingSeconds = endOfThisYear / 1000 - Math.floor(now / 1000);
     let remainingTime = getComplicatedTimeBySeconds(remainingSeconds);
 
-    // 将进度条分4s呈现
+    // 更改时间相关标签文字
+    currentTimeSpan.innerText = `${year}-${month}-${day} ${hour}:${minute}:${second}`;
+    pastTimeSpan.innerText = pastTime;
+    remainingTimeSpan.innerText = remainingTime;
+
+    currentTimeSpan.innerText = `${year}-${month}-${day} ${hour}:${minute}:${second}`;
+    pastTimeSpan.innerText = pastTime;
+    remainingTimeSpan.innerText = remainingTime;
+
+    // 更改进度条相关标签属性文字
     let percentage = Math.floor(100 * (pastSeconds / totalSeconds));
-    if (percentage >= 4) {
-        percentage = Math.floor(percentage * counter / 4);
-    }
-    if (counter < 5) {
-        localStorage.setItem("counter", counter); // counter>=5 时计数无意义
+    let currentPercentage = 0;
+    let maxCounter = Math.ceil(percentage / 10);
+    if (counter <= maxCounter) {
+        for (currentPercentage = (counter - 1) * 10; currentPercentage <= Math.min(counter * 10, percentage); currentPercentage++) {
+            let level = getLevel(currentPercentage);
+            let barClassName = "bar striped " + level + " w-" + currentPercentage;
+            let barInnerText = currentPercentage + "%";
+
+            if (bar.className != barClassName) {
+                bar.className = barClassName;
+            }
+            if (bar.innerText != barInnerText) {
+                bar.innerText = barInnerText;
+            }
+        }
     }
 
-    let level = getLevel(percentage);
-
-    let barClassName = "bar striped " + level + " w-" + percentage;
-    let barInnerText = percentage + "%";
-
-    // 更改标签属性、内部文字
-    currentTimeSpan.innerText = `${year}-${month}-${day} ${hour}:${minute}:${second}`;
-    pastTimeSpan.innerText = pastTime;
-    remainingTimeSpan.innerText = remainingTime;
-
-    currentTimeSpan.innerText = `${year}-${month}-${day} ${hour}:${minute}:${second}`;
-    pastTimeSpan.innerText = pastTime;
-    remainingTimeSpan.innerText = remainingTime;
-    if (bar.className != barClassName) {
-        bar.className = barClassName;
-    }
-    if (bar.innerText != barInnerText) {
-        bar.innerText = barInnerText;
-    }
+    localStorage.setItem("counter", counter);
 }
 
 function run() {
@@ -111,7 +113,7 @@ function run() {
 
     localStorage.setItem("counter", 0);
     setInterval(function () {
-        calculate(currentTimeSpan, pastTimeSpan, remainingTimeSpan, bar)
+        calculate(currentTimeSpan, pastTimeSpan, remainingTimeSpan, bar);
     }, 1000);
 }
 
