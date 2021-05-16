@@ -39,9 +39,9 @@ function calculate(currentTimeSpan, pastTimeSpan, remainingTimeSpan, bar) {
     if (counter++ === 0) {
         var quote = document.querySelector("div#quote");
         var div = document.createElement('div');
-        div.innerHTML = '<h3 class="opacity">Time flies like an arrow.</h3>'
+        div.innerHTML = '<h3 class="opacity">Time flies like an arrow.</h3>';
         var node1 = div.firstChild;
-        div.innerHTML = '<img class="slidein" src="img/arrow.png" alt="Arrow"></img>'
+        div.innerHTML = '<img class="slidein" src="img/arrow.png" alt="Arrow"></img>';
         var node2 = div.firstChild;
         quote.appendChild(node1);
         quote.appendChild(node2);
@@ -80,26 +80,32 @@ function calculate(currentTimeSpan, pastTimeSpan, remainingTimeSpan, bar) {
     pastTimeSpan.innerText = pastTime;
     remainingTimeSpan.innerText = remainingTime;
 
-    // 更改进度条相关标签属性文字
-    let percentage = Math.floor(100 * (pastSeconds / totalSeconds));
-    let currentPercentage = 0;
-    let maxCounter = Math.ceil(percentage / 10);
-    if (counter <= maxCounter) {
-        for (currentPercentage = (counter - 1) * 10; currentPercentage <= Math.min(counter * 10, percentage); currentPercentage++) {
+    if (counter == 1) {
+        let percentage = Math.floor(100 * (pastSeconds / totalSeconds));
+        let loopTime = Math.floor(percentage / 10) + 1;
+        let percentageList = [...Array(loopTime).keys()].map(i => i * 10);
+        if (percentageList[percentageList.length - 1] < percentage) {
+            percentageList.push(percentage);
+        }
+        
+        for (let i = 0; i < percentageList.length; i++) {
+            let currentPercentage = percentageList[i];
             let level = getLevel(currentPercentage);
             let barClassName = "bar striped " + level + " w-" + currentPercentage;
             let barInnerText = currentPercentage + "%";
 
-            if (bar.className != barClassName) {
-                bar.className = barClassName;
-            }
-            if (bar.innerText != barInnerText) {
-                bar.innerText = barInnerText;
-            }
+            setTimeout(function () {
+                if (bar.className != barClassName) {
+                    bar.className = barClassName;
+                }
+                if (bar.innerText != barInnerText) {
+                    bar.innerText = barInnerText;
+                }
+            }, 150 * i);
         }
-    }
 
-    localStorage.setItem("counter", counter);
+        localStorage.setItem("counter", counter);
+    }
 }
 
 function run() {

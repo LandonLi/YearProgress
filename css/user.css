@@ -53,7 +53,7 @@ div.main {
     overflow: -moz-scrollbars-none;
 }
 
-/* 动画效果 */
+/* 箭头动画效果 */
 h3.opacity {
     animation-duration: 4s;
     animation-name: opac;
