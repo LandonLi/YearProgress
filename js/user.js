@@ -73,8 +73,8 @@ function calculate(mainDiv, currentTimeSpan, pastTimeSpan, remainingTimeSpan, ba
 
     let pastSeconds = parseInt((now - beginOfThisYear) / 1000);
     let pastTime = getComplicatedTimeBySeconds(pastSeconds);
-    if (pastSeconds == 0) {
-        bar.className = "bar striped " + getLevel(0); + " w-" + currentPercentage;
+    if (pastSeconds <= 10) {
+        bar.className = "bar striped " + getLevel(0) + " w-0";
         bar.innerText = "0%";
     }
 
@@ -97,14 +97,14 @@ function calculate(mainDiv, currentTimeSpan, pastTimeSpan, remainingTimeSpan, ba
         if (percentageList[percentageList.length - 1] < percentage) {
             percentageList.push(percentage);
         }
-        
+
         for (let i = 0; i < percentageList.length; i++) {
             let currentPercentage = percentageList[i];
             let level = getLevel(currentPercentage);
             let barClassName = "bar striped " + level + " w-" + currentPercentage;
             let barInnerText = currentPercentage + "%";
 
-            setTimeout(function () {
+            setTimeout(() => {
                 if (bar.className != barClassName) {
                     bar.className = barClassName;
                 }
