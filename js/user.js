@@ -33,7 +33,7 @@ function getComplicatedTimeBySeconds(seconds) {
 }
 
 
-function calculate(currentTimeSpan, pastTimeSpan, remainingTimeSpan, bar) {
+function calculate(mainDiv, currentTimeSpan, pastTimeSpan, remainingTimeSpan, bar) {
     // 初始化动画节点
     var counter = parseInt(localStorage.getItem("counter"));
     if (counter++ === 0) {
@@ -58,6 +58,12 @@ function calculate(currentTimeSpan, pastTimeSpan, remainingTimeSpan, bar) {
     let minute = addLeftZero(now.getMinutes());
     let second = addLeftZero(now.getSeconds());
 
+    if (month == "01" && day == "01" && hour == "00" && now.getMinutes() < 1) {
+        mainDiv.className = "main pyro";
+    } else {
+        mainDiv.className = "main";
+    }
+
     // 获取年初、年末时间
     let beginOfThisYear = new Date(year + "/01/01 00:00:00");
     let endOfThisYear = new Date((year + 1) + "/01/01 00:00:00");
@@ -67,6 +73,10 @@ function calculate(currentTimeSpan, pastTimeSpan, remainingTimeSpan, bar) {
 
     let pastSeconds = parseInt((now - beginOfThisYear) / 1000);
     let pastTime = getComplicatedTimeBySeconds(pastSeconds);
+    if (pastSeconds == 0) {
+        bar.className = "bar striped " + getLevel(0); + " w-" + currentPercentage;
+        bar.innerText = "0%";
+    }
 
     let remainingSeconds = endOfThisYear / 1000 - Math.floor(now / 1000);
     let remainingTime = getComplicatedTimeBySeconds(remainingSeconds);
@@ -110,6 +120,7 @@ function calculate(currentTimeSpan, pastTimeSpan, remainingTimeSpan, bar) {
 
 function run() {
     // get elements
+    let mainDiv = document.getElementById("main");
     let currentTimeSpan = document.getElementById("currentTime");
     let pastTimeSpan = document.getElementById("pastTime");
     let remainingTimeSpan = document.getElementById("remainingTime");
@@ -119,7 +130,7 @@ function run() {
 
     localStorage.setItem("counter", 0);
     setInterval(function () {
-        calculate(currentTimeSpan, pastTimeSpan, remainingTimeSpan, bar);
+        calculate(mainDiv, currentTimeSpan, pastTimeSpan, remainingTimeSpan, bar);
     }, 1000);
 }
 
