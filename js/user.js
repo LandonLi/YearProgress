@@ -1,11 +1,3 @@
-function isLeapYear(year) {
-    if (year % 100 == 0) {
-        return (year % 400 == 0);
-    } else {
-        return (year % 100 == 0);
-    }
-}
-
 function getLevel(percentage) {
     if (percentage <= 60) {
         return "success";
@@ -21,7 +13,7 @@ function addLeftZero(num) {
 }
 
 function getComplicatedTimeBySeconds(seconds) {
-    var temp = seconds;
+    let temp = seconds;
     let fSecond = Math.floor(temp % 60);
     temp = Math.floor(temp / 60);
     let fMinute = temp % 60;
@@ -35,14 +27,14 @@ function getComplicatedTimeBySeconds(seconds) {
 
 function calculate(mainDiv, currentTimeSpan, pastTimeSpan, remainingTimeSpan, bar) {
     // 初始化动画节点
-    var counter = parseInt(localStorage.getItem("counter"));
+    let counter = parseInt(localStorage.getItem("counter"));
     if (counter++ === 0) {
-        var quote = document.querySelector("div#quote");
-        var div = document.createElement('div');
+        let quote = document.querySelector("div#quote");
+        let div = document.createElement('div');
         div.innerHTML = '<h3 class="opacity">Time flies like an arrow.</h3>';
-        var node1 = div.firstChild;
+        let node1 = div.firstChild;
         div.innerHTML = '<img class="slidein" src="img/arrow.png" alt="Arrow"></img>';
-        var node2 = div.firstChild;
+        let node2 = div.firstChild;
         quote.appendChild(node1);
         quote.appendChild(node2);
     }
