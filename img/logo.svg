@@ -1,0 +1,31 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- 1. 背景容器 (圆角矩形，适配 iOS/Android) -->
+    <rect x="0" y="0" width="512" height="512" rx="128" fill="#0f172a"/>
+    
+    <!-- 2. 轨道 (暗色背景环) -->
+    <circle cx="256" cy="256" r="160" stroke="#1e293b" stroke-width="48"/>
+    
+    <!-- 3. 渐变定义 -->
+    <defs>
+        <linearGradient id="progress_gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#38bdf8"/> <!-- Cyan-400 -->
+            <stop offset="100%" stop-color="#3b82f6"/> <!-- Blue-500 -->
+        </linearGradient>
+        <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="10" />
+        </filter>
+    </defs>
+
+    <!-- 4. 进度环 (约 80% 进度) -->
+    <!-- 路径描述：从正上方(256, 96)开始，画一个大弧线 -->
+    <path d="M256 96 A160 160 0 1 1 142.8 369.1" 
+          stroke="url(#progress_gradient)" 
+          stroke-width="48" 
+          stroke-linecap="round"
+          fill="none"/>
+
+    <!-- 5. 末端高亮光点 (装饰) -->
+    <circle cx="142.8" cy="369.1" r="14" fill="#ffffff" filter="url(#glow)" opacity="0.6"/>
+    <circle cx="142.8" cy="369.1" r="10" fill="#ffffff"/>
+
+</svg>
