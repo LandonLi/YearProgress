@@ -167,8 +167,7 @@
             transition: width 0.2s linear;
         }
 
-        .progress-fill::after {
-            content: '';
+        .progress-head {
             position: absolute;
             right: -2px;
             top: 50%;
@@ -177,8 +176,22 @@
             height: 8px;
             background: #fff;
             border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             box-shadow: 0 0 10px var(--gradient-end), 0 0 20px var(--gradient-end);
             z-index: 2;
+            transition: all 0.3s ease;
+        }
+
+        .progress-head.is-festival {
+            background: transparent;
+            box-shadow: none;
+            width: auto;
+            height: auto;
+            font-size: 24px;
+            right: -10px;
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
         }
 
         @keyframes flow {
@@ -302,7 +315,9 @@
 
         <div class="progress-wrapper">
             <div class="progress-track">
-                <div class="progress-fill" id="progressBar"></div>
+                <div class="progress-fill" id="progressBar">
+                    <div id="progressHead" class="progress-head"></div>
+                </div>
             </div>
             <div class="percentage-text" id="percentageDisplay">--%</div>
         </div>
@@ -325,6 +340,7 @@
         <div class="quote" id="quote"></div>
     </div>
 
+    <script src="config.js"></script>
     <script>
         // --- 1. 真实烟花系统 (Realistic Fireworks) ---
         class RealisticFireworks {
@@ -465,7 +481,8 @@
             passed: document.getElementById('daysPassed'),
             left: document.getElementById('daysLeft'),
             year: document.getElementById('yearDisplay'),
-            quote: document.getElementById('quote')
+            quote: document.getElementById('quote'),
+            head: document.getElementById('progressHead')
         };
 
         const quotes = [
@@ -536,6 +553,24 @@
             ui.year.innerText = currentYear;
             ui.bar.style.width = `${pct.toFixed(4)}%`;
             ui.pct.innerText = `${pct.toFixed(6)}%`;
+
+            // Festival Icon Logic
+            const todayKey = `${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
+            const festival = window.YearProgressConfig && window.YearProgressConfig.festivals && window.YearProgressConfig.festivals[todayKey];
+            
+            if (festival && festival.icon) {
+                if (ui.head.innerText !== festival.icon) {
+                    ui.head.innerText = festival.icon;
+                    ui.head.classList.add('is-festival');
+                    ui.head.title = festival.name || '';
+                }
+            } else {
+                if (ui.head.innerText !== '') {
+                    ui.head.innerText = '';
+                    ui.head.classList.remove('is-festival');
+                    ui.head.removeAttribute('title');
+                }
+            }
 
             const timeStr = `${currentYear}-${pad(now.getMonth() + 1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
             ui.time.innerText = timeStr;
