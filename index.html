@@ -11,6 +11,8 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
     <style>
         :root {
@@ -191,7 +193,7 @@
             height: auto;
             font-size: 24px;
             right: -10px;
-            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
         }
 
         @keyframes flow {
@@ -557,7 +559,7 @@
             // Festival Icon Logic
             const todayKey = `${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
             const festival = window.YearProgressConfig && window.YearProgressConfig.festivals && window.YearProgressConfig.festivals[todayKey];
-            
+
             if (festival && festival.icon) {
                 if (ui.head.innerText !== festival.icon) {
                     ui.head.innerText = festival.icon;
