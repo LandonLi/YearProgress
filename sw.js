@@ -1,7 +1,8 @@
-const CACHE_NAME = 'year-progress-v1';
+const CACHE_NAME = 'year-progress-v2';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
+  '/config.js',
   '/site.webmanifest',
   '/favicon.ico',
   '/img/favicon-16x16.png',
