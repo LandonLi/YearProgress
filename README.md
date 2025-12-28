@@ -19,6 +19,7 @@
 *   **🎆 物理烟花引擎**：基于 Canvas 的高性能粒子系统，支持重力与空气阻力模拟。
     *   *自动触发*：新年零点自动燃放。
     *   *手动触发*：开发者控制台彩蛋。
+*   **🎉 节日氛围图标**：特定的节日或日期，进度条末端会自动变换为节日专属图标（如 🎃 🎄 🧨），让时间的流逝充满仪式感。
 *   **🚀 极致性能**：纯原生 HTML/CSS/JS 实现，无任何外部依赖，加载瞬间完成。
 
 ## 🛠️ 安装与开发 (Installation)
@@ -42,6 +43,21 @@
 
 3.  在浏览器访问 `http://localhost:8000`。
 
+### 自定义配置 (Configuration)
+
+本项目支持通过 `config.js` 自定义节日图标：
+
+```javascript
+// config.js
+window.YearProgressConfig = {
+    festivals: {
+        "01-01": { icon: "🎉", name: "New Year" },
+        "10-31": { icon: "🎃", name: "Halloween" },
+        // 添加更多日期...
+    }
+};
+```
+
 ## 📂 项目结构 (Structure)
 
 ```text
@@ -52,6 +68,7 @@ YearProgress/
 │   ├── favicon-*.png        # 网页图标
 │   └── logo.svg             # 原始矢量图标
 ├── index.html               # 主入口 (包含核心 CSS/JS)
+├── config.js                # 节日配置文件
 ├── sw.js                    # Service Worker (PWA 缓存策略)
 ├── site.webmanifest         # PWA 配置文件
 ├── favicon.ico              # 兼容旧版图标
