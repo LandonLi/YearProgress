@@ -477,10 +477,21 @@
         themeBtn.addEventListener('click', () => applyTheme(currentMode === 'dark' ? 'light' : 'dark'));
         initTheme();
 
-        document.getElementById('fullscreenToggle').addEventListener('click', () => {
-            if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(e => console.log(e));
-            else if (document.exitFullscreen) document.exitFullscreen();
-        });
+        const fullscreenBtn = document.getElementById('fullscreenToggle');
+        const ua = window.navigator.userAgent;
+        const isIOS = /iPad|iPhone|iPod/.test(ua) || (window.navigator.platform === 'MacIntel' && window.navigator.maxTouchPoints > 1);
+
+        if (isIOS) {
+            fullscreenBtn.style.display = 'none';
+        } else {
+            fullscreenBtn.addEventListener('click', () => {
+                if (!document.fullscreenElement) {
+                    document.documentElement.requestFullscreen().catch(e => console.log(e));
+                } else if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            });
+        }
 
         // --- 3. 核心业务逻辑 ---
         const ui = {
